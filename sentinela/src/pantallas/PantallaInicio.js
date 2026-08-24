@@ -1,21 +1,32 @@
 // PantallaInicio.js
-// Pantalla principal. Muestra de un vistazo el estado del bastón.
+// Pantalla principal rediseñada.
+// Muestra el estado del bastón con jerarquía visual clara:
+//   1. Tarjeta grande de estado (lo más importante)
+//   2. Chips con los datos secundarios (batería, GPS, conexión)
+//   3. Botón para saltar al mapa
 
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  Pressable,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-import TarjetaEstado from '../componentes/TarjetaEstado';
+import TarjetaEstadoGrande from '../componentes/TarjetaEstadoGrande';
+import ChipDato from '../componentes/ChipDato';
 import { useBaston } from '../contextos/ContextoBaston';
 import { COLORES } from '../config/constantes';
-import {
-  formatearFechaHora,
-  tiempoRelativoDesde,
-} from '../utilidades/fechas';
-import { mostrarOAunNoDisponible } from '../utilidades/textos';
+import { tiempoRelativoDesde } from '../utilidades/fechas';
 
 export default function PantallaInicio() {
   const { codigoBaston, estadoActual } = useBaston();
-  const [refrescando, setRefrescando] = React.useState(false);
+  const navegacion = useNavigation();
+  const [refrescando, setRefrescando] = useState(false);
 
   // Firebase ya actualiza en tiempo real. El "refrescar" solo da
   // sensación de control al usuario: espera un momento y termina.
@@ -26,6 +37,14 @@ export default function PantallaInicio() {
 
   const enAlerta = estadoActual?.botonPanico === true;
 
+  // Calculamos los colores del chip de batería según el nivel.
+  const bateria = estadoActual?.nivelBateria;
+  const infoBateria = obtenerInfoBateria(bateria);
+
+  // Y del chip de GPS según la precisión.
+  const precision = estadoActual?.precisionGps;
+  const infoGps = obtenerInfoGps(precision);
+
   return (
     <ScrollView
       style={estilos.contenedor}
@@ -34,57 +53,112 @@ export default function PantallaInicio() {
         <RefreshControl refreshing={refrescando} onRefresh={alTirarParaRefrescar} />
       }
     >
-      <Text style={estilos.titulo}>Bastón {codigoBaston}</Text>
+      {/* Saludo pequeño arriba */}
+      <View style={estilos.encabezado}>
+        <Text style={estilos.saludo}>Bastón</Text>
+        <Text style={estilos.codigoBaston}>{codigoBaston}</Text>
+      </View>
 
-      <TarjetaEstado
+      {/* Tarjeta principal de estado */}
+      <TarjetaEstadoGrande
         enAlerta={enAlerta}
-        titulo={enAlerta ? 'Hay una alerta activa' : 'No hay alerta activa'}
-        subtitulo={
+        textoRelativo={
           estadoActual?.fechaHora
-            ? `Última actualización ${tiempoRelativoDesde(estadoActual.fechaHora).toLowerCase()}`
-            : 'Aún no hemos recibido datos del bastón'
+            ? tiempoRelativoDesde(estadoActual.fechaHora)
+            : null
         }
       />
 
-      <View style={estilos.tarjetaInfo}>
-        <FilaInfo etiqueta="Botón de pánico" valor={enAlerta ? 'Activo' : 'Inactivo'} />
-        <FilaInfo
-          etiqueta="Última hora"
-          valor={formatearFechaHora(estadoActual?.fechaHora)}
+      {/* Título de la sección de detalles */}
+      <Text style={estilos.tituloSeccion}>Datos del bastón</Text>
+
+      {/* Grilla de chips (2 columnas) */}
+      <View style={estilos.grilla}>
+        <ChipDato
+          icono={infoBateria.icono}
+          etiqueta="Batería"
+          valor={bateria !== undefined && bateria !== null ? `${bateria} %` : '—'}
+          colorIcono={infoBateria.color}
+          colorFondoIcono={infoBateria.colorFondo}
         />
-        <FilaInfo
-          etiqueta="Nivel de batería"
-          valor={
-            estadoActual?.nivelBateria !== undefined && estadoActual?.nivelBateria !== null
-              ? `${estadoActual.nivelBateria}%`
-              : mostrarOAunNoDisponible(null)
-          }
-        />
-        <FilaInfo
-          etiqueta="Estado de conexión"
-          valor={mostrarOAunNoDisponible(estadoActual?.estadoConexion)}
-        />
-        <FilaInfo
+        <ChipDato
+          icono="location"
           etiqueta="Precisión GPS"
-          valor={
-            estadoActual?.precisionGps !== undefined && estadoActual?.precisionGps !== null
-              ? `${estadoActual.precisionGps} m`
-              : mostrarOAunNoDisponible(null)
-          }
+          valor={precision !== undefined && precision !== null ? `${precision} m` : '—'}
+          colorIcono={infoGps.color}
+          colorFondoIcono={infoGps.colorFondo}
+        />
+        <ChipDato
+          icono="wifi"
+          etiqueta="Conexión"
+          valor={estadoActual?.estadoConexion || '—'}
+          colorIcono={COLORES.azulEstructura}
+          colorFondoIcono={COLORES.azulSuave}
+        />
+        <ChipDato
+          icono="pulse"
+          etiqueta="Pánico"
+          valor={enAlerta ? 'Activo' : 'Inactivo'}
+          colorIcono={enAlerta ? COLORES.rojoAlerta : COLORES.verdeOk}
+          colorFondoIcono={enAlerta ? COLORES.rojoSuave : COLORES.verdeSuave}
         />
       </View>
+
+      {/* Botón para saltar al mapa */}
+      <Pressable
+        style={({ pressed }) => [
+          estilos.botonMapa,
+          { opacity: pressed ? 0.85 : 1 },
+        ]}
+        onPress={() => navegacion.navigate('Mapa')}
+      >
+        <Ionicons name="map" size={20} color={COLORES.azulEstructura} />
+        <Text style={estilos.textoBotonMapa}>Ver ubicación en el mapa</Text>
+        <Ionicons name="chevron-forward" size={20} color={COLORES.azulEstructura} />
+      </Pressable>
     </ScrollView>
   );
 }
 
-// Fila simple etiqueta / valor.
-function FilaInfo({ etiqueta, valor }) {
-  return (
-    <View style={estilos.fila}>
-      <Text style={estilos.etiqueta}>{etiqueta}</Text>
-      <Text style={estilos.valor}>{valor}</Text>
-    </View>
-  );
+// Devuelve ícono y colores según el nivel de batería.
+function obtenerInfoBateria(nivel) {
+  if (nivel === undefined || nivel === null) {
+    return {
+      icono: 'battery-half',
+      color: COLORES.textoSecundario,
+      colorFondo: COLORES.grisChip,
+    };
+  }
+  if (nivel < 20) {
+    return {
+      icono: 'battery-dead',
+      color: COLORES.rojoAlerta,
+      colorFondo: COLORES.rojoSuave,
+    };
+  }
+  if (nivel < 50) {
+    return {
+      icono: 'battery-half',
+      color: COLORES.ambarAviso,
+      colorFondo: COLORES.ambarSuave,
+    };
+  }
+  return {
+    icono: 'battery-full',
+    color: COLORES.verdeOk,
+    colorFondo: COLORES.verdeSuave,
+  };
+}
+
+// Devuelve colores según la precisión de GPS (en metros).
+function obtenerInfoGps(precision) {
+  if (precision === undefined || precision === null) {
+    return { color: COLORES.textoSecundario, colorFondo: COLORES.grisChip };
+  }
+  if (precision > 30) {
+    return { color: COLORES.ambarAviso, colorFondo: COLORES.ambarSuave };
+  }
+  return { color: COLORES.verdeOk, colorFondo: COLORES.verdeSuave };
 }
 
 const estilos = StyleSheet.create({
@@ -94,36 +168,45 @@ const estilos = StyleSheet.create({
   },
   scroll: {
     padding: 20,
+    paddingBottom: 40,
   },
-  titulo: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: COLORES.textoPrincipal,
-    marginBottom: 8,
+  encabezado: {
+    marginBottom: 16,
   },
-  tarjetaInfo: {
-    backgroundColor: COLORES.tarjeta,
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 8,
-  },
-  fila: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORES.bordeSuave,
-  },
-  etiqueta: {
+  saludo: {
     fontSize: 14,
     color: COLORES.textoSecundario,
   },
-  valor: {
-    fontSize: 14,
+  codigoBaston: {
+    fontSize: 24,
+    fontWeight: '700',
     color: COLORES.textoPrincipal,
-    fontWeight: '600',
-    textAlign: 'right',
-    flexShrink: 1,
-    marginLeft: 10,
+  },
+  tituloSeccion: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: COLORES.textoPrincipal,
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  grilla: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  botonMapa: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORES.azulSuave,
+    borderRadius: 14,
+    padding: 16,
+    marginTop: 20,
+    gap: 10,
+  },
+  textoBotonMapa: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '700',
+    color: COLORES.azulEstructura,
   },
 });
