@@ -10,6 +10,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 import PantallaLogin from '../pantallas/PantallaLogin';
 import PantallaVincularBaston from '../pantallas/PantallaVincularBaston';
@@ -25,21 +26,47 @@ import { COLORES } from '../config/constantes';
 const Pila = createNativeStackNavigator();
 const Pestanas = createBottomTabNavigator();
 
+// Mapa de íconos: qué ícono le toca a cada pestaña.
+// Es una constante del módulo, NO un Hook, así que sí puede vivir aquí.
+const ICONOS_POR_PESTANA = {
+  Inicio: 'home',
+  Mapa: 'map',
+  Historial: 'time',
+  Ajustes: 'settings',
+};
+
 function PestanasPrincipales() {
+  // Los Hooks van DENTRO del componente, nunca fuera.
+  const { estadoActual } = useBaston();
+  const enAlertaGlobal = estadoActual?.botonPanico === true;
+
   return (
     <Pestanas.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
+        // El ícono de cada pestaña se elige según su nombre.
+        // Cuando la pestaña está activa usa el ícono "lleno";
+        // cuando no, usa la versión "outline" (solo contorno).
+        tabBarIcon: ({ focused, color, size }) => {
+          const base = ICONOS_POR_PESTANA[route.name] || 'ellipse';
+          const nombreIcono = focused ? base : `${base}-outline`;
+          return <Ionicons name={nombreIcono} size={size} color={color} />;
+        },
         tabBarActiveTintColor: COLORES.azulEstructura,
         tabBarInactiveTintColor: COLORES.textoSecundario,
         headerStyle: { backgroundColor: COLORES.azulEstructura },
         headerTintColor: '#FFFFFF',
         headerTitleStyle: { fontWeight: '700' },
-      }}
+      })}
     >
       <Pestanas.Screen
         name="Inicio"
         component={PantallaInicio}
-        options={{ title: 'Inicio' }}
+        options={{
+          title: 'Inicio',
+          // Globito rojo con "!" cuando hay alerta de pánico activa.
+          tabBarBadge: enAlertaGlobal ? '!' : undefined,
+          tabBarBadgeStyle: { backgroundColor: '#B7131A', color: '#FFFFFF' },
+        }}
       />
       <Pestanas.Screen
         name="Mapa"
