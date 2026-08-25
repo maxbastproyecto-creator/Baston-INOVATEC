@@ -46,7 +46,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 28,
     paddingHorizontal: 20,
     alignItems: 'center',
-    ...SOMBRA_TARJETA,
+    shadowColor: '#000',
   },
   circuloIcono: {
     width: 88,

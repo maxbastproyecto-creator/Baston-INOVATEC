@@ -51,11 +51,17 @@ function PestanasPrincipales() {
           const nombreIcono = focused ? base : `${base}-outline`;
           return <Ionicons name={nombreIcono} size={size} color={color} />;
         },
-        tabBarActiveTintColor: COLORES.azulEstructura,
+        tabBarActiveTintColor: COLORES.activo,
         tabBarInactiveTintColor: COLORES.textoSecundario,
-        headerStyle: { backgroundColor: COLORES.azulEstructura },
-        headerTintColor: '#FFFFFF',
-        headerTitleStyle: { fontWeight: '700' },
+        headerStyle: { 
+        backgroundColor: COLORES.ventanaLuz,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e6e6e6',
+         },
+        headerTintColor: '#1A1C1C',
+        headerTitleStyle: { fontWeight: '900' },
+        headerShadowVisible: false,
+        headerTitleAlign: 'center',
       })}
     >
       <Pestanas.Screen
