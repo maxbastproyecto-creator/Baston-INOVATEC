@@ -53,6 +53,11 @@ const estilos = StyleSheet.create({
     borderLeftColor: COLORES.azulEstructura,
     padding: 14,
     marginVertical: 6,
+    elevation: 6,
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.10,
+    shadowRadius: 4,
   },
   tipo: {
     fontSize: 16,

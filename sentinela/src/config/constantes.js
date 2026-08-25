@@ -7,12 +7,12 @@ export const COLORES = {
   rojoContenedor: '#DB322F',
   azulEstructura: '#F88030',
   ambarAviso: '#7B5500',
-  fondo: '#F9F9F9',
+  fondo: '#F2F2F2',
   tarjeta: '#FFFFFF',
   textoPrincipal: '#1A1C1C',
-  textoSecundario: '#767676',
+  textoSecundario: '#8A8F95',
   bordeSuave: '#E4BEB9',
-  ventanaLuz: '#F9F9F9',
+  ventanaLuz: '#fafafa',
   activo: '#F88030'
 };
 

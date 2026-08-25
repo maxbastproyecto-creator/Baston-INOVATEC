@@ -59,7 +59,7 @@ function PestanasPrincipales() {
         borderBottomColor: '#e6e6e6',
          },
         headerTintColor: '#1A1C1C',
-        headerTitleStyle: { fontWeight: '900' },
+        headerTitleStyle: { fontWeight: '750' },
         headerShadowVisible: false,
         headerTitleAlign: 'center',
       })}

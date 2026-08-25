@@ -49,7 +49,7 @@ const estilos = StyleSheet.create({
     elevation: 6,
     shadowColor: '#000000',
     shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.10,
     shadowRadius: 4,
   },
   circuloIcono: {
