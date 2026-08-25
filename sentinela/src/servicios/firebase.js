@@ -2,10 +2,9 @@
 // Configuración central de Firebase.
 // Todo el proyecto lee Firebase desde este único archivo.
 //
-// IMPORTANTE:
-// Reemplaza los valores de configuracionFirebase con los datos
-// reales de tu propio proyecto Firebase. Los pasos exactos están
-// en el archivo 04_CONFIGURAR_FIREBASE_GRATIS.md.
+// Esta aplicacion ya esta conectada al proyecto SentinelaHackaton.
+// No reemplaces esta configuracion por el correo o la contrasena de
+// Firebase Authentication: son datos de inicio de sesion, no del SDK.
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
@@ -19,20 +18,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Datos del proyecto Firebase. Estos valores NO son secretos:
 // Firebase los expone en el cliente. La seguridad real está en
 // las reglas de la base de datos, no en ocultar estas claves.
-const configuracionFirebase = {
-  apiKey: 'AIzaSyDQNZHlLR6LvAe84w1Lem4NUER2x8GdZNY',
-  authDomain: 'sentinela-escolar-a4103.firebaseapp.com',
-  databaseURL: 'https://sentinela-escolar-a4103-default-rtdb.firebaseio.com',
-  projectId: "sentinela-escolar-a4103",
-  storageBucket: "sentinela-escolar-a4103.firebasestorage.app",
-  messagingSenderId: "727390488606",
-  appId: "1:727390488606:web:c2cee518f634be3435c60f"
+const firebaseConfig = {
+  apiKey: "AIzaSyAZFE7ICktJzO1HA_BFhA-GlRDOZt9ZxjE",
+  authDomain: "sentinelahackaton.firebaseapp.com",
+  databaseURL: "https://sentinelahackaton-default-rtdb.firebaseio.com/",
+  projectId: "sentinelahackaton",
+  storageBucket: "sentinelahackaton.firebasestorage.app",
+  messagingSenderId: "163280788532",
+  appId: "1:163280788532:web:9d795cc48ca8c883a53e61"
 };
 
 // Inicializamos la app solo una vez, aunque el archivo se importe
 // desde varios lugares.
 const appFirebase = getApps().length === 0
-  ? initializeApp(configuracionFirebase)
+  ? initializeApp(firebaseConfig)
   : getApp();
 
 // Inicializamos Auth guardando la sesión en el teléfono.
