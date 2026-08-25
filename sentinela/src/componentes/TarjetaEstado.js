@@ -23,6 +23,11 @@ const estilos = StyleSheet.create({
     borderRadius: 14,
     padding: 18,
     marginVertical: 10,
+    elevation: 2.5,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
   },
   titulo: {
     color: '#FFFFFF',

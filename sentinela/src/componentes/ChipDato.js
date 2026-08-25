@@ -40,7 +40,11 @@ const estilos = StyleSheet.create({
     gap: 10,
     flex: 1,
     minWidth: '48%',
-    ...SOMBRA_TARJETA,
+    elevation: 2.5,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
   },
   circuloIcono: {
     width: 36,

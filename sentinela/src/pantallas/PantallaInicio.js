@@ -194,6 +194,8 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,
+    overflow: 'visible',
+    paddingBottom: 8,
   },
   botonMapa: {
     flexDirection: 'row',

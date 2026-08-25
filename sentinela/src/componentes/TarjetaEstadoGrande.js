@@ -46,7 +46,11 @@ const estilos = StyleSheet.create({
     paddingVertical: 28,
     paddingHorizontal: 20,
     alignItems: 'center',
-    shadowColor: '#000',
+    elevation: 6,
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
   },
   circuloIcono: {
     width: 88,
