@@ -2,12 +2,28 @@
 
 Guía paso a paso para descargar, instalar y probar la aplicación
 **Sentinela** en tu propia computadora y teléfono. No hace falta saber
-programar. Tiempo estimado: **10 a 15 minutos**.
+programar.
 
 La app ya viene conectada al proyecto Firebase del equipo
 (**SentinelaHackaton**), así que no hay que crear ni configurar ninguna
 base de datos: solo clonar, instalar y ejecutar.
 
+---
+
+## 🔧 Tecnologías utlizadas
+
+**Software**
+1. Expo
+2. React Native
+
+**Base de datos (realtimebasedata)**
+1. Firebase
+
+**En un dispostivo móvil:**
+1. Expo go
+
+**Hardware (Bastón)**
+1. basado en tecnología ESP32
 ---
 
 ## ✅ Requisitos previos
