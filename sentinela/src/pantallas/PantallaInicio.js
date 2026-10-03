@@ -56,7 +56,7 @@ export default function PantallaInicio() {
     >
       {/* Saludo pequeño arriba */}
       <View style={estilos.encabezado}>
-        <Text style={estilos.saludo}>Bastón  <View style={[estilos.bastorFalsoCss, { backgroundColor: '#959595'}]} /> <View style={[estilos.bastorFalso2Css, {backgroundColor: '#959595'}]}/></Text>
+        <Text style={estilos.saludo}>Bastón</Text>
         <Text style={estilos.codigoBaston}>{codigoBaston}</Text>
       </View>
 
@@ -211,17 +211,5 @@ const estilos = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     color: COLORES.azulEstructura,
-  },
-    bastorFalsoCss: {
-    width: 2,            
-    height: 20,            
-    borderRadius: 3,     
-    transform: [{ rotate: '-25deg' }],
-  },
-   bastorFalso2Css: {
-    width: 2,
-    height: 2,
-    borderRadius: 4,
-    paddingBottom: 4,
-   }
+  }
 });

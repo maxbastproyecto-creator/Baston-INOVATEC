@@ -13,7 +13,9 @@ export const COLORES = {
   textoSecundario: '#8A8F95',
   bordeSuave: '#E4BEB9',
   ventanaLuz: '#fafafa',
-  activo: '#F88030'
+  activo: '#F88030',
+  verdecalma: '#66bd6c',
+  testcolor: '#ffd900',
 };
 
 // Claves que usamos para guardar datos en el teléfono con AsyncStorage.

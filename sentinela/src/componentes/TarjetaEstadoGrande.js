@@ -12,7 +12,8 @@ import { COLORES, SOMBRA_TARJETA } from '../config/constantes';
 
 export default function TarjetaEstadoGrande({ enAlerta, textoRelativo }) {
   // Cuando hay alerta, cambia todo: color de fondo, ícono y texto.
-  const colorFondo = enAlerta ? COLORES.rojoAlerta : COLORES.verdeOk;
+  const colorFondo = enAlerta ? COLORES.rojoAlerta : COLORES.verdecalma;
+  const colorTest = COLORES.testcolor;
   const nombreIcono = enAlerta ? 'alert-circle' : 'shield-checkmark';
   const titulo = enAlerta ? 'Alerta activa' : 'Todo en orden';
   const subtitulo = enAlerta

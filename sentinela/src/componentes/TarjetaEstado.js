@@ -20,12 +20,13 @@ export default function TarjetaEstado({ enAlerta, titulo, subtitulo }) {
 
 const estilos = StyleSheet.create({
   tarjeta: {
-    borderRadius: 14,
-    padding: 18,
-    marginVertical: 10,
-    elevation: 2.5,
+    borderRadius: 20,
+    paddingVertical: 28,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    elevation: 6,
     shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.10,
     shadowRadius: 4,
   },
