@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ProveedorAutenticacion } from './src/contextos/ContextoAutenticacion';
 import { ProveedorBaston } from './src/contextos/ContextoBaston';
+import { ProveedorContactos } from './src/contextos/ContextoContactos';
 import NavegacionPrincipal from './src/navegacion/NavegacionPrincipal';
 
 export default function App() {
@@ -19,10 +20,12 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <ProveedorAutenticacion>
-          <ProveedorBaston>
+          <ProveedorContactos>
+           <ProveedorBaston>
             <NavegacionPrincipal />
             <StatusBar style="light" />
-          </ProveedorBaston>
+           </ProveedorBaston>
+          </ProveedorContactos>
         </ProveedorAutenticacion>
       </SafeAreaProvider>
     </GestureHandlerRootView>
