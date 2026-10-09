@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const firebaseConfig = {
   apiKey: "AIzaSyAZFE7ICktJzO1HA_BFhA-GlRDOZt9ZxjE",
   authDomain: "sentinelahackaton.firebaseapp.com",
-  databaseURL: "https://sentinelahackaton-default-rtdb.firebaseio.com/",
+  databaseURL: "https://sentinelahackaton-default-rtdb.firebaseio.com",
   projectId: "sentinelahackaton",
   storageBucket: "sentinelahackaton.firebasestorage.app",
   messagingSenderId: "163280788532",

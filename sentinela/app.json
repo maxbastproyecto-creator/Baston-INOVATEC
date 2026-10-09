@@ -6,7 +6,9 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "icon": "./assets/images/icon.png",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.sentinela.app"
@@ -15,12 +17,18 @@
       "package": "com.sentinela.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
+        "config": { "googleMaps": { "apiKey": "TU_API_KEY" } },
         "backgroundColor": "#4C56AF"
       }
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
-    "plugins": []
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "1d88336c-9082-4b0b-b48c-4f8df5277e07"
+      }
+    }
   }
 }

@@ -258,7 +258,7 @@ export default function PantallaMapa() {
               <>
                 {contactos.length === 0 ? (
                   <Text style={estilos.sinContactos}>
-                    No tienes contactos. Agrégalos en Ajustes.
+                    No tienes contactos. Agrega al menos uno.
                   </Text>
                 ) : (
                   contactos.map((contacto) => (
@@ -304,7 +304,7 @@ export default function PantallaMapa() {
               ]}
               onPress={() => setModalLlamadaVisible(false)}
             >
-              <Text style={estilos.textoBotonCerrarModal}>Cancelar</Text>
+              <Text style={estilos.textoBotonCerrarModal}>Salir</Text>
             </Pressable>
           </View>
         </View>
